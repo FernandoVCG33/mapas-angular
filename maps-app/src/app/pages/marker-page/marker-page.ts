@@ -28,9 +28,28 @@ export class MarkerPage implements AfterViewInit{
       center: [-68.151751,-16.521333], // starting position [lng, lat]
       zoom: 15, // starting zoom
     });
+
+
+
     this.mapListener(map);
   }
   mapListener(map:mapboxgl.Map){
-    console.log('object');
+
+    console.log( 'object');
+
+    map.on('click', (e)=> this.mapClick(e)  );
+    this.map.set(map);
+  }
+  mapClick(event:mapboxgl.MapMouseEvent){
+    const color= '#xxxxxx'.
+    replace(/x/g, (y)=>(Math.random()*16|0).toString(16));
+    const marker = new mapboxgl.Marker({
+      draggable: false,
+      color: color,
+    })
+      .setLngLat([event.lngLat.lng, event.lngLat.lat ])
+      .addTo(this.map()!);
+    console.log(event.lngLat);
+
   }
 }
