@@ -4,6 +4,10 @@ import {environment} from '../../../environments/environment';
 
 mapboxgl.accessToken = environment.mapboxKey;
 
+interface Marker{
+  id: string;
+  mapboxMarker: mapboxgl.Marker;
+}
 
 @Component({
   selector: 'app-marker-page',
@@ -15,6 +19,7 @@ export class MarkerPage implements AfterViewInit{
   // Corregido el nombre de la propiedad
   mapDiv = viewChild<ElementRef>('map');
 
+  markers=signal<Marker[]>([]);
   async ngAfterViewInit(){
     if (!this.mapDiv()?.nativeElement) throw 'Elemento #map no encontrado';
 
@@ -41,6 +46,7 @@ export class MarkerPage implements AfterViewInit{
     this.map.set(map);
   }
   mapClick(event:mapboxgl.MapMouseEvent){
+    if(!this.map()) return;
     const color= '#xxxxxx'.
     replace(/x/g, (y)=>(Math.random()*16|0).toString(16));
     const marker = new mapboxgl.Marker({
@@ -50,6 +56,10 @@ export class MarkerPage implements AfterViewInit{
       .setLngLat([event.lngLat.lng, event.lngLat.lat ])
       .addTo(this.map()!);
     console.log(event.lngLat);
-
+    const newMarker:Marker={
+      id:'1',
+      mapboxMarker: marker,
+    }
+    this.markers.set([newMarker, ...this.markers()]);
   }
 }
