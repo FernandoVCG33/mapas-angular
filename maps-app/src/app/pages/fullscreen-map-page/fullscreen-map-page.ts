@@ -1,4 +1,4 @@
-import {Component, ElementRef, AfterViewInit, viewChild, signal} from '@angular/core';
+import {Component, ElementRef, AfterViewInit, viewChild, signal, effect} from '@angular/core';
 import mapboxgl from 'mapbox-gl';
 import { environment } from '../../../environments/environment';
 
@@ -28,9 +28,15 @@ mapboxgl.accessToken = environment.mapboxKey;
   `
 })
 export class FullscreenMapPage implements AfterViewInit {
-
+  map=signal<mapboxgl.Map|null>(null);
   // Corregido el nombre de la propiedad
   mapDiv = viewChild<ElementRef>('map');
+
+  zoomEfect=effect(()=>{
+    if(!this.map()) return;
+    this.map()?.zoomTo(this.zoom());
+  })
+
   zoom=signal(14);
   ngAfterViewInit(): void {
     if (!this.mapDiv()?.nativeElement) throw 'Elemento #map no encontrado';
@@ -43,7 +49,11 @@ export class FullscreenMapPage implements AfterViewInit {
       container: mapElement, // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
       center: [-74.5, 40], // starting position [lng, lat]
-      zoom: 9, // starting zoom
+      zoom: this.zoom(), // starting zoom
     });
+    this.map.set(map);
+  }
+  mapListener(map:mapboxgl.Map){
+
   }
 }

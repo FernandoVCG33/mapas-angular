@@ -6,8 +6,10 @@
   <h2 class="text-2xl font-bold text-black mb-2">
     zoom
     <small class="text-gray-500 font-normal" >
-      10
+      {{ zoom() }}
     </small>
   </h2>
-  <input type="range" min="0" max="100" value="40" class="range range-primary" />
+  <input type="range" min="0" max="19" [value]="zoom()" class="range range-primary"
+        (input)="zoom.set(+txtZoom.value)" #txtZoom
+  />
 </section>
