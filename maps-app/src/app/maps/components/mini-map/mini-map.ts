@@ -27,7 +27,7 @@ export class MiniMap implements  AfterViewInit{
       container: mapElement, // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
       center: this.lngLat(),
-      zoom: 14, // starting zoom
+      zoom: 15, // starting zoom
     });
     new mapboxgl.Marker().setLngLat(this.lngLat()).addTo(map);
   }
