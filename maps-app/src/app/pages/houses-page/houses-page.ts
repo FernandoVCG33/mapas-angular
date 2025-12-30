@@ -1,5 +1,6 @@
 import {Component, signal} from '@angular/core';
 import  { v4 as uuid }   from 'uuid';
+import {MiniMap} from '../../maps/components/mini-map/mini-map';
 
 
 interface HouseProperty {
@@ -12,7 +13,9 @@ interface HouseProperty {
 }
 @Component({
   selector: 'app-houses-page',
-  imports: [],
+  imports: [
+    MiniMap
+  ],
   templateUrl: './houses-page.html',
 })
 export class HousesPage {
