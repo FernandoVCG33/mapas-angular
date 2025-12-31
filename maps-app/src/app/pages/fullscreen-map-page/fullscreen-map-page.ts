@@ -41,11 +41,11 @@ export class FullscreenMapPage implements AfterViewInit {
     this.map()?.zoomTo(this.zoom());
   })
 
-  zoom=signal(14);
+  zoom=signal(12);
 
   coordinates=signal({
-    lng:-74.5,
-    lat:40
+    lat: -16.5196,
+    lng: -68.1403
   });
 
   ngAfterViewInit(): void {
@@ -59,7 +59,7 @@ export class FullscreenMapPage implements AfterViewInit {
     const map = new mapboxgl.Map({
       container: mapElement, // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
-      center: [lat, lng], // starting position [lng, lat]
+      center: [lng, lat], // starting position [lng, lat]
       zoom: this.zoom(), // starting zoom
     });
     this.mapListener(map);
