@@ -1,3 +1,13 @@
+/* 1. Primero las importaciones externas */
 @import 'mapbox-gl/dist/mapbox-gl.css';
-@import "tailwindcss";
-@plugin "daisyui";
+
+/* 2. Luego las directivas de Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3. Tus estilos globales (si tienes) */
+html, body {
+  height: 100%;
+  margin: 0;
+}
